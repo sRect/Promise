@@ -1,8 +1,9 @@
-import Promise from "@/promise";
+import MyPromise from "@/promise";
 
-console.log(Promise);
-let p = new Promise((resolve, reject) => {
-  resolve("hello");
+console.log(MyPromise);
+let p = new MyPromise((resolve, reject) => {
+  resolve("success");
+  reject("failer");
 });
 
 p.then(
