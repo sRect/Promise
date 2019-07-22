@@ -28,6 +28,8 @@
     }],
     ["@babel/plugin-proposal-class-properties", {
       "loose": true
-    }]
+    }],
+    // https://babeljs.io/docs/en/next/babel-plugin-syntax-dynamic-import.html
+    "@babel/plugin-syntax-dynamic-import" // 懒加载
   ]
 }

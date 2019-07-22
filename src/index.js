@@ -1,5 +1,6 @@
 import MyPromise from "@/promise";
 require("./AOP");
+import "@/css/main.css";
 
 console.log(MyPromise);
 let p = new MyPromise((resolve, reject) => {
