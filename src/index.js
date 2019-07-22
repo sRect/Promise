@@ -1,4 +1,5 @@
 import MyPromise from "@/promise";
+require("./AOP");
 
 console.log(MyPromise);
 let p = new MyPromise((resolve, reject) => {

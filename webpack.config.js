@@ -14,7 +14,7 @@ const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 module.exports = {
   // devtool: 'inline-source-map',
   // entry: './src/index.js',
-  entry: ['./src/index.js'], // 将两个文件打包成一个
+  entry: ['babel-polyfill','./src/index.js'], // 将两个文件打包成一个
   // entry: { // 多入口
   //   index: './src/index.js',
   //   a: './src/a.js'
