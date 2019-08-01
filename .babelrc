@@ -10,7 +10,7 @@
         "browsers": [
           "last 2 version",
           "> 0.5%",
-          "IE 10",
+          "IE 9",
           "not dead"
         ],
       }

@@ -6,7 +6,6 @@ const PurifycssPlugin = require('purifycss-webpack'); // 消除无用的css
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 用于压缩css代码
 // const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 // const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin'); // 用于提取css到文件中
-const copyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   devtool: '#source-map', // 线上生成配置
@@ -96,10 +95,6 @@ module.exports = {
         path.resolve(__dirname, './src/*.js')
       ])
     }),
-    new copyWebpackPlugin([{
-      from: path.resolve(__dirname, '../static'), //要打包的静态资源目录地址，这里的__dirname是指项目目录下，是node的一种语法，可以直接定位到本机的项目目录中
-      to: './static', //要打包到的文件夹路径，跟随output配置中的目录。所以不需要再自己加__dirname
-    }]),
     // new MiniCssExtractPlugin({
     //   // Options similar to the same options in webpackOptions.output
     //   // all options are optional

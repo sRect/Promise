@@ -1,5 +1,6 @@
 import MyPromise from "@/promise";
 require("./AOP");
+require("./tween_test");
 import "@/css/main.css";
 
 console.log(MyPromise);

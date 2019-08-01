@@ -10,11 +10,12 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin'); // 分�
 
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
+const copyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   // devtool: 'inline-source-map',
   // entry: './src/index.js',
-  entry: ['@babel/polyfill', './src/index.js'], // 将两个文件打包成一个
+  entry: ['./src/index.js'], // 将两个文件打包成一个
   // entry: { // 多入口
   //   index: './src/index.js',
   //   a: './src/a.js'
@@ -54,7 +55,8 @@ module.exports = {
               loader: 'postcss-loader'
             }
           ]
-        })
+        }),
+        exclude: /node_modules/
       },
       {
         test: /\.less$/,
@@ -70,7 +72,8 @@ module.exports = {
               loader: 'less-loader'
             }
           ]
-        })
+        }),
+        exclude: /node_modules/
       },
       {
         test: /\.(png|jpg|gif|ttf|eot|woff(2)?)(\?[=a-z0-9]+)?$/,
@@ -129,6 +132,10 @@ module.exports = {
     //     keep_fnames: false,
     //   },
     // })
+    new copyWebpackPlugin([{
+      from: path.resolve(__dirname, '../static'), //要打包的静态资源目录地址，这里的__dirname是指项目目录下，是node的一种语法，可以直接定位到本机的项目目录中
+      to: './static', //要打包到的文件夹路径，跟随output配置中的目录。所以不需要再自己加__dirname
+    }]),
     new FriendlyErrorsWebpackPlugin(),
     new WebpackBuildNotifierPlugin({
       title: "编译结果：",
