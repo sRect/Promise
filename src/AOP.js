@@ -1,37 +1,3 @@
-class IteratorTest {
-  constructor(arr) {
-    this.arr = arr || [];
-  }
-
-  createIterator() {
-    return new Promise((resolve, reject) => {
-      let iterator = this.arr[Symbol.iterator]();
-
-      if (iterator) {
-        resolve(iterator);
-      } else {
-        reject("ERROR");
-      }
-    });
-  }
-
-  async foo() {
-    let [error, iterator] = await this.createIterator()
-      .then(data => [null, data])
-      .catch(error => [error, null]);
-
-    if (iterator) {
-      console.log(iterator.next());
-      console.log(iterator.next());
-      console.log(iterator.next());
-      console.log(iterator.next());
-    }
-  }
-}
-
-const iteratorTest = new IteratorTest([1, 2, 3]);
-iteratorTest.foo();
-
 Function.prototype.before = function(beforeFn) {
   var _self = this; // 保存原函数的引用
   // 返回包含了原函数和新函数的"代理"函数

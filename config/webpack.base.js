@@ -15,11 +15,12 @@ const copyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
   // devtool: 'inline-source-map',
   // entry: './src/index.js',
-  entry: ['./src/index.js'], // 将两个文件打包成一个
-  // entry: { // 多入口
-  //   index: './src/index.js',
-  //   a: './src/a.js'
-  // },
+  // entry: ['./src/index.js'], // 将两个文件打包成一个
+  entry: { // 多入口
+    index: './src/index.js',
+    AOP: './src/AOP.js',
+    iterator: './src/iterator.js'
+  },
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: '[name].[hash:20].js' // 多出口
@@ -103,7 +104,7 @@ module.exports = {
         removeAttributeQuotes: true
       },
       template: './index.html',
-      // chunks: ['index', 'a'] // index.html 引入index.js
+      chunks: ['index', 'AOP', 'iterator'] // index.html 引入index.js
     }),
     // new HtmlWebpackPlugin({
     //   filename: 'a.html',
@@ -116,22 +117,6 @@ module.exports = {
     //   template: './index.html',
     //   chunks: ['a'] // a.html引入a.js
     // }),
-    // new UglifyjsWebpackPlugin({
-    //   exclude: /\/node_modules/,
-    //   parallel: true,
-    //   sourceMap: true,
-    //   uglifyOptions: {
-    //     warnings: false,
-    //     parse: {},
-    //     compress: {},
-    //     mangle: true, // Note `mangle.properties` is `false` by default.
-    //     output: null,
-    //     toplevel: false,
-    //     nameCache: null,
-    //     ie8: false,
-    //     keep_fnames: false,
-    //   },
-    // })
     new copyWebpackPlugin([{
       from: path.resolve(__dirname, '../static'), //要打包的静态资源目录地址，这里的__dirname是指项目目录下，是node的一种语法，可以直接定位到本机的项目目录中
       to: './static', //要打包到的文件夹路径，跟随output配置中的目录。所以不需要再自己加__dirname
