@@ -4,8 +4,7 @@ const glob = require('glob-all');
 const TerserPlugin = require('terser-webpack-plugin'); // 混淆压缩js
 const PurifycssPlugin = require('purifycss-webpack'); // 消除无用的css
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 用于压缩css代码
-// const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-// const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin'); // 用于提取css到文件中
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   devtool: '#source-map', // 线上生成配置
@@ -57,18 +56,16 @@ module.exports = {
           safari10: false,
         },
       }),
-      // new OptimizeCssAssetsPlugin({
-      //   assetNameRegExp: /\.optimize\.css$/g,
-      //   cssProcessor: require('cssnano'),
-      //   cssProcessorPluginOptions: {
-      //     preset: ['default', {
-      //       discardComments: {
-      //         removeAll: true
-      //       }
-      //     }],
-      //   },
-      //   canPrint: true
-      // }),
+      new OptimizeCssAssetsPlugin({
+        assetNameRegExp: /\.css$/g,
+        cssProcessor: require('cssnano'),
+        cssProcessorOptions: {
+          safe: true,
+          discardComments: {
+            removeAll: true
+          }
+        }
+      })
       // new UglifyjsWebpackPlugin({
       //   uglifyOptions: {
       //     warnings: false,
@@ -101,18 +98,6 @@ module.exports = {
     //   filename: '[name].[hash:20].css',
     //   chunkFilename: '[id].[hash:20].css',
     //   // ignoreOrder: false, // Enable to remove warnings about conflicting order
-    // }),
-    // new OptimizeCssnanoPlugin({
-    //   sourceMap: true,
-    //   cssnanoOptions: {
-    //     preset: [
-    //       'default',
-    //       {
-    //         mergeLonghand: false,
-    //         cssDeclarationSorter: false
-    //       }
-    //     ]
-    //   }
     // }),
   ]
 }
