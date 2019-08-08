@@ -17,13 +17,17 @@ module.exports = {
   // entry: './src/index.js',
   // entry: ['./src/index.js'], // 将两个文件打包成一个
   entry: { // 多入口
-    index: './src/index.js',
-    AOP: './src/AOP.js',
-    iterator: './src/iterator.js'
+    // index: './src/index.js',
+    // AOP: './src/AOP.js',
+    // iterator: './src/iterator.js'
+    pageA: './src/js/pageA',
+    pageB: './src/js/pageB',
+    pageC: './src/js/pageC'
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].[hash:20].js' // 多出口
+    filename: '[name].[hash:20].js', // 多出口
+    chunkFilename: "[name].[chunkhash].js"
   },
   mode: process.env.NODE_ENV,
   resolve: {
@@ -104,7 +108,8 @@ module.exports = {
         removeAttributeQuotes: true
       },
       template: './index.html',
-      chunks: ['index', 'AOP', 'iterator'] // index.html 引入index.js
+      // chunks: ['index', 'AOP', 'iterator'] // index.html 引入index.js
+      chunks: ['pageA', 'pageB', 'pageC']
     }),
     // new HtmlWebpackPlugin({
     //   filename: 'a.html',
