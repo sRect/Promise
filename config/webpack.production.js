@@ -30,31 +30,33 @@ module.exports = {
           maxInitialRequests: 5,
           minSize: 0 // 只要超出0字节就生成一个新包
         },
-        // vendor: { // 抽离第三方插件
-        //   test: /node_modules/, // 指定是node_modules下的第三方包
-        //   chunks: 'initial',
-        //   minChunks: 1,
-        //   maxInitialRequests: 5,
-        //   minSize: 2,
-        //   name: 'vendor', // 打包后的文件名，任意命名
-        //   priority: 10, // 设置优先级，防止和自定义的公共代码提取时被覆盖，不进行打包
-        //   enforce: true
-        // }
-        'vendor-pageA': {
-          test: /tween/, // 直接使用 test 来做路径匹配
-          chunks: "initial",
-          name: "vendor-pageA",
-          enforce: true,
-        },
-        'vendor-pageB': {
-          test: /moment/, // 直接使用 test 来做路径匹配
-          chunks: "initial",
-          name: "vendor-pageB",
-          enforce: true,
+        vendor: { // 抽离第三方插件
+          test: /node_modules/, // 指定是node_modules下的第三方包
+          chunks: 'initial',
+          minChunks: 1,
+          maxInitialRequests: 5,
+          minSize: 2,
+          name: 'vendor', // 打包后的文件名，任意命名
+          priority: 10, // 设置优先级，防止和自定义的公共代码提取时被覆盖，不进行打包
+          enforce: true
         }
+        // 'vendor-pageA': {
+        //   test: /tween/, // 直接使用 test 来做路径匹配
+        //   chunks: "initial",
+        //   name: "vendor-pageA",
+        //   enforce: true,
+        // },
+        // 'vendor-pageB': {
+        //   test: /moment/, // 直接使用 test 来做路径匹配
+        //   chunks: "initial",
+        //   name: "vendor-pageB",
+        //   enforce: true,
+        // }
       }
     },
     minimizer: [
+      // https://blog.csdn.net/qq_22267353/article/details/53463802
+      // https://www.npmjs.com/package/terser-webpack-plugin
       new TerserPlugin({
         test: /\.js(\?.*)?$/i,
         exclude: /node_modules/,
@@ -69,7 +71,7 @@ module.exports = {
             drop_console: true,
             drop_debugger: true
           },
-          mangle: true, // Note `mangle.properties` is `false` by default.
+          mangle: true, // true/false 是否混淆变量名
           module: false,
           output: null,
           toplevel: false,
