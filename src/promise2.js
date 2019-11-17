@@ -18,11 +18,11 @@ function read(filePath) {
   });
 }
 
-read(path.resolve(__dirname, "./fs/1.txt"))
+read(path.resolve(__dirname, "./js/fs/1.txt"))
   .then(
     data => {
       console.log(data);
-      return read(path.resolve(__dirname, `./fs/${data}`));
+      return read(path.resolve(__dirname, `./js/fs/${data}`));
     },
     error => {
       console.log(error);
