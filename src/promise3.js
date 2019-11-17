@@ -6,7 +6,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const MyPromise = require("./promise-commonjs.js");
+const MyPromise = require("./promise-commonjs2.js");
 
 function read(filePath) {
   return new MyPromise((resolve, reject) => {
