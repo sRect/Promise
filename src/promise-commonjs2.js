@@ -5,8 +5,14 @@ const status = {
   REJECTED: "rejected"
 };
 
-function resolvePromise(promse2, x) {
-  console.log(promse2);
+function resolvePromise(promise2, x, resolve, reject) {
+  if (promise2 === x) {
+    throw new TypeError(
+      "TypeError: Chaining cycle detected for promise #<Promise> my"
+    );
+    // console.log('死循环');
+  }
+  // console.log(promise2, x);
 }
 
 class MyPromise {
