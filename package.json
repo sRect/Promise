@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "promises-aplus-tests src/promise-commonjs6.js",
     "babel_build": "babel src -d dist",
     "start": "cross-env NODE_ENV=development webpack-dev-server",
     "server": "npm run start",
