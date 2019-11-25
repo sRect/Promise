@@ -17,8 +17,8 @@ function resolvePromise(promise2, x, resolve, reject) {
   }
   // 判断x的类型
   // 怎么判断x是不是一个promise,看他有没有then方法
-  let called; // 防止调用了成功同时又调用了失败
   if (typeof x === "function" || (typeof x === "object" && x != null)) {
+    let called; // 防止调用了成功同时又调用了失败
     try {
       let then = x.then; // 尝试的取then，有可能报错
       if (typeof then === "function") {
@@ -62,6 +62,10 @@ class Promise {
     this.onRejectedCallbacks = []; // 存放所有失败的回调
 
     let resolve = value => {
+      if (value instanceof Promise) {
+        return value.then(resolve, reject);
+      }
+
       if (this.status === status.PENDING) {
         this.value = value;
         this.status = status.FULFILLED;
@@ -78,7 +82,12 @@ class Promise {
       }
     };
 
-    executor(resolve, reject);
+    try {
+      executor(resolve, reject);
+    } catch (e) {
+      console.log(e);
+      reject(e);
+    }
   }
 
   then(onFulfilled, onRejected) {
@@ -88,8 +97,8 @@ class Promise {
     onRejected =
       typeof onRejected === "function"
         ? onRejected
-        : err => {
-            throw err;
+        : r => {
+            throw r;
           };
 
     let promise2;
@@ -147,20 +156,33 @@ class Promise {
 
     return promise2;
   }
+
+  catch(rejectFunc) {
+    // catch方法
+    return this.then(null, rejectFunc);
+  }
 }
 
 // https: //github.com/promises-aplus/promises-tests
 // 测试 promises-aplus-tests
 // 是否符合promiseA+规范
-Promise.deffer = Promise.deferred = function() {
+Promise.defer = Promise.deferred = function() {
   let dfd = {};
-
-  dfd.Promise = new Promise((resolve, reject) => {
+  dfd.promise = new Promise((resolve, reject) => {
     dfd.resolve = resolve;
     dfd.reject = reject;
   });
-
   return dfd;
+};
+Promise.resolve = function(value) {
+  return new Promise((resolve, reject) => {
+    resolve(value);
+  });
+};
+Promise.reject = function(reason) {
+  return new Promise((resolve, reject) => {
+    reject(reason);
+  });
 };
 
 module.exports = Promise;
